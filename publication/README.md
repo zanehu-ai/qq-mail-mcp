@@ -4,23 +4,26 @@ Status: **draft, not submitted, not hosted**. `listing.json` contains draft list
 
 The existing root plugin remains the local macOS connector. Do not upload that local stdio package as a working remote mail service. The public package needs a hosted HTTPS Streamable HTTP endpoint and per-user authorization.
 
-## Proposed domain
+## Selected domain
 
-The publisher requested `qq-mail.opcorbit`. The proposed full hostname is
-`qq-mail.opcorbit.com`, pending confirmation. Public DNS checked on 2026-10-05
+The publisher selected `qq-mail.opcorbit.com`. Public DNS checked on 2026-10-05
 returned NXDOMAIN for that hostname; `opcorbit.com` uses
 `dns1.hichina.com` / `dns2.hichina.com`. No DNS record has been created.
 
-If confirmed, the proposed MCP URL is `https://qq-mail.opcorbit.com/mcp`.
+The intended MCP URL is `https://qq-mail.opcorbit.com/mcp`.
 The hosting server still needs selection and current inspection. Existing
 OpcOrbit deployment documentation is not evidence that this mail service is
 installed or that a shared production server has sufficient capacity.
+
+The [hosted implementation draft](../hosted/README.md) now supplies the HTTP
+resource server, browser connection flow and encrypted per-user storage. It
+has not been configured with a production identity provider or deployed.
 
 ## Current gates
 
 1. Developer identity verification. The signed-in OpenAI Platform portal currently requires verification before accepting an upload. The publisher completes this in the portal.
 2. Select the public service's domain and hosting account.
-3. Implement remote user authentication, mailbox linking and isolation. Users authorize their own QQ mailboxes. Never use a shared service-level mailbox or the developer's personal mailbox as a fallback.
+3. Configure a production identity provider and validate the implemented remote authentication, mailbox linking and isolation with actual clients. Users authorize their own QQ mailboxes. Never use a shared service-level mailbox or the developer's personal mailbox as a fallback.
 4. Deploy the HTTPS MCP endpoint with authentication discovery. Store mailbox authorization codes encrypted in the hosted service's secret/storage system; never put them in GitHub, a plugin ZIP, tool arguments or logs. Do not expose the existing local Keychain server anonymously.
 5. Publish the actual product website, support page, privacy policy and service terms. Policy wording must describe the deployed service's real collection, retention, deletion and recipients; the local connector's behavior is not a hosted service policy.
 6. Complete the portal's domain verification challenge without replacing another product's challenge.

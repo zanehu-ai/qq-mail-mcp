@@ -10,9 +10,14 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = ["mcp==1.30.0", "keyring==25.7.0"]
 
+[project.optional-dependencies]
+hosted = ["Authlib==1.8.0", "itsdangerous==2.2.0", "PyJWT[crypto]==2.15.1", "cryptography==50.0.2", "uvicorn==0.54.0"]
+
 [project.scripts]
 qq-mail-mcp = "server:main"
 qq-mail-configure = "configure:main"
+qq-mail-web = "hosted.app:main"
 
 [tool.setuptools]
 py-modules = ["server", "mail_backend", "configure"]
+packages = ["hosted"]
