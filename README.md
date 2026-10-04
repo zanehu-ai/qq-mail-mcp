@@ -37,6 +37,8 @@ Use either standalone MCP registration or the plugin connection to avoid duplica
 
 ## ChatGPT
 
+Public directory submission preparation is tracked in [publication/README.md](publication/README.md). This repository is not currently a hosted public mail service or an approved directory listing.
+
 ChatGPT web cannot directly start a local stdio process. Connect privately through OpenAI Secure MCP Tunnel where supported, or deploy an authenticated remote MCP transport. A private tunnel needs a configured tunnel, an OpenAI runtime API credential and a running tunnel client on the Mac. Those credentials and configuration are not included here. Account/workspace access may vary.
 
 See [Connect and test your plugin](https://developers.openai.com/plugins/deploy/connect-chatgpt) and [Secure MCP Tunnel](https://developers.openai.com/api/docs/guides/secure-mcp-tunnels). Public directory submission requires a separate hosted endpoint and review.
