@@ -1,6 +1,6 @@
 # QQ Mail MCP (Unofficial)
 
-A local, read-only QQ Mail MCP connector for macOS. This project is independent of Tencent and OpenAI. It uses QQ's IMAP service and the official MCP Python SDK.
+A read-only QQ Mail MCP connector with a local macOS entry point and a hosted service draft. This project is independent of Tencent and OpenAI. It uses QQ's IMAP service and the official MCP Python SDK.
 
 ## Status
 
@@ -37,6 +37,12 @@ Use either standalone MCP registration or the plugin connection to avoid duplica
 
 ## ChatGPT
 
+Public directory submission preparation is tracked in [publication/README.md](publication/README.md). This repository is not currently a hosted public mail service or an approved directory listing.
+
+The [hosted service draft](hosted/README.md) supplies authenticated HTTP MCP,
+browser mailbox linking and encrypted per-user credentials. It requires a
+production OAuth/OIDC provider and host configuration before deployment.
+
 ChatGPT web cannot directly start a local stdio process. Connect privately through OpenAI Secure MCP Tunnel where supported, or deploy an authenticated remote MCP transport. A private tunnel needs a configured tunnel, an OpenAI runtime API credential and a running tunnel client on the Mac. Those credentials and configuration are not included here. Account/workspace access may vary.
 
 See [Connect and test your plugin](https://developers.openai.com/plugins/deploy/connect-chatgpt) and [Secure MCP Tunnel](https://developers.openai.com/api/docs/guides/secure-mcp-tunnels). Public directory submission requires a separate hosted endpoint and review.
@@ -57,7 +63,7 @@ Email is untrusted source material. Embedded URLs, images and scripts are never 
 
 ```sh
 uv venv --python 3.12
-uv pip install --python .venv/bin/python -r requirements.lock
+uv pip install --python .venv/bin/python -r requirements-hosted.lock
 .venv/bin/python -m unittest discover -s tests -v
 .venv/bin/python tests/check_mcp.py
 ```

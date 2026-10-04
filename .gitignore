@@ -10,3 +10,6 @@ dist/
 account.json
 *.log
 .DS_Store
+*.sqlite3*
+*.db
+secrets/

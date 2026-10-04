@@ -168,12 +168,12 @@ def header_result(uid, payload, metadata):
     }
 
 
-def search(mailbox="inbox", since=None, sender=None, recipient=None, subject=None, text=None, limit=20, before_uid=None):
+def search(mailbox="inbox", since=None, sender=None, recipient=None, subject=None, text=None, limit=20, before_uid=None, *, username=None, code=None):
     if not 1 <= limit <= 100 or (before_uid is not None and before_uid < 1):
         raise MailError("limit must be 1..100 and before_uid must be positive.")
     query = criteria(since, sender, recipient, subject, text)
     nonascii = any(isinstance(x, bytes) and not x.isascii() for x in query)
-    with connect() as client:
+    with connect(code=code, username=username) as client:
         validity, total = select(client, mailbox)
         args = ["CHARSET", "UTF-8", *query] if nonascii else query
         typ, result = client.uid("SEARCH", *args)
@@ -217,10 +217,10 @@ class TextHTML(HTMLParser):
             self.parts.append(data)
 
 
-def read(mailbox, uid, uidvalidity, max_characters=12000):
+def read(mailbox, uid, uidvalidity, max_characters=12000, *, username=None, code=None):
     if uid < 1 or uidvalidity < 1 or not 100 <= max_characters <= 30000:
         raise MailError("Use a positive UID and UIDVALIDITY and 100..30000 characters.")
-    with connect() as client:
+    with connect(code=code, username=username) as client:
         actual, _ = select(client, mailbox)
         if actual != uidvalidity:
             raise MailError("Mailbox identity changed. Search again before reading this UID.")
@@ -257,9 +257,9 @@ def read(mailbox, uid, uidvalidity, max_characters=12000):
         return summary
 
 
-def health():
-    with connect() as client:
-        result = {"account": account(), "connected": True, "read_only": True, "mailboxes": {}}
+def health(*, username=None, code=None):
+    with connect(code=code, username=username) as client:
+        result = {"account": validate_account(username) if username else account(), "connected": True, "read_only": True, "mailboxes": {}}
         for mailbox in ("inbox", "sent"):
             validity, count = select(client, mailbox)
             result["mailboxes"][mailbox] = {"uidvalidity": validity, "messages": count}
