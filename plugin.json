@@ -1,0 +1,20 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "qq-mail-mcp",
+  "version": "0.1.0",
+  "description": "Unofficial read-only QQ Mail connector for macOS",
+  "author": {"name": "Zane Hu"},
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "QQ Mail MCP (Unofficial)",
+        "shortDescription": "Read QQ Inbox and Sent on macOS",
+        "longDescription": "Read-only QQ IMAP connector using macOS Keychain. Requires installing the Python runtime and configuring your own account. Does not send or modify mail.",
+        "developerName": "Zane Hu",
+        "category": "Productivity",
+        "capabilities": ["Read"],
+        "defaultPrompt": ["Check my QQ Mail connection.", "Summarize recent QQ Inbox messages."]
+      }
+    }
+  }
+}

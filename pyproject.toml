@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qq-mail-mcp"
+version = "0.1.0"
+description = "Unofficial read-only QQ Mail MCP connector for macOS"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["mcp==1.30.0", "keyring==25.7.0"]
+
+[project.scripts]
+qq-mail-mcp = "server:main"
+qq-mail-configure = "configure:main"
+
+[tool.setuptools]
+py-modules = ["server", "mail_backend", "configure"]
