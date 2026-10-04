@@ -4,6 +4,18 @@ Status: **draft, not submitted, not hosted**. `listing.json` contains draft list
 
 The existing root plugin remains the local macOS connector. Do not upload that local stdio package as a working remote mail service. The public package needs a hosted HTTPS Streamable HTTP endpoint and per-user authorization.
 
+## Proposed domain
+
+The publisher requested `qq-mail.opcorbit`. The proposed full hostname is
+`qq-mail.opcorbit.com`, pending confirmation. Public DNS checked on 2026-10-05
+returned NXDOMAIN for that hostname; `opcorbit.com` uses
+`dns1.hichina.com` / `dns2.hichina.com`. No DNS record has been created.
+
+If confirmed, the proposed MCP URL is `https://qq-mail.opcorbit.com/mcp`.
+The hosting server still needs selection and current inspection. Existing
+OpcOrbit deployment documentation is not evidence that this mail service is
+installed or that a shared production server has sufficient capacity.
+
 ## Current gates
 
 1. Developer identity verification. The signed-in OpenAI Platform portal currently requires verification before accepting an upload. The publisher completes this in the portal.
