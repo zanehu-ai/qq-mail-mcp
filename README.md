@@ -1,5 +1,12 @@
 # QQ Mail MCP (Unofficial)
 
+<details>
+<summary>简体中文简介（点击展开）</summary>
+
+面向 macOS 的**最小权限只读 QQ 邮箱 MCP 连接器**（Python + 官方 MCP SDK）。仅暴露 `qq_mail_status`、`qq_mail_search`、`qq_mail_read` 三个只读工具（基于 IMAP `EXAMINE` / `BODY.PEEK`，不改未读状态，零发信/删信/移动权限）；16 位授权码零明文托管于 **macOS Keychain**，内置 TLS 校验、单封阅读上限及非信任邮件防拉取护栏。注：当前为实验阶段（Experimental），已通过初始化与 Mock 只读测试。
+
+</details>
+
 A local, read-only QQ Mail MCP connector for macOS. This project is independent of Tencent and OpenAI. It uses QQ's IMAP service and the official MCP Python SDK.
 
 ## Security Design Highlights
