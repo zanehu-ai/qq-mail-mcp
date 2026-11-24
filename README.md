@@ -1,9 +1,16 @@
 # QQ Mail MCP (Unofficial)
 
+![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-111111?style=flat)
+![MCP Read-Only](https://img.shields.io/badge/MCP-read--only-111111?style=flat)
+![License: MIT](https://img.shields.io/badge/license-MIT-111111?style=flat)
+
 <details>
 <summary>简体中文简介（点击展开）</summary>
 
-面向 macOS 的**最小权限只读 QQ 邮箱 MCP 连接器**（Python + 官方 MCP SDK）。仅暴露 `qq_mail_status`、`qq_mail_search`、`qq_mail_read` 三个只读工具（基于 IMAP `EXAMINE` / `BODY.PEEK`，不改未读状态，零发信/删信/移动权限）；16 位授权码零明文托管于 **macOS Keychain**，内置 TLS 校验、单封阅读上限及非信任邮件防拉取护栏。注：当前为实验阶段（Experimental），已通过初始化与 Mock 只读测试。
+面向 macOS 的**最小权限只读 QQ 邮箱 MCP 连接器**（Python 3.12+ / 官方 MCP SDK / MIT 协议）。仅暴露 `qq_mail_status`、`qq_mail_search`、`qq_mail_read` 三个只读工具（基于 IMAP `EXAMINE` / `BODY.PEEK`，不改未读状态，零发信/删信/移动权限）；16 位授权码零明文托管于 **macOS Keychain**，内置 TLS 校验、单封阅读上限及非信任邮件防拉取护栏。
+
+- **已验证项**：自动化 `unittest` 套件与 `tests/check_mcp.py` 均已通过，验证了 MCP 初始化握手、只读工具注解及缺凭证快速失败（Mock 隔离环境）。
+- **本地实机配置**：首次连接真实邮箱时，通过 `qq-mail-configure` 交互输入邮箱与 16 位 IMAP 授权码后立即写入 macOS 钥匙串（不在磁盘保存明文密码）。
 
 </details>
 
@@ -15,9 +22,10 @@ A local, read-only QQ Mail MCP connector for macOS. This project is independent 
 - **Zero-Plaintext Credentials**: Stores the 16-letter QQ IMAP authorization code exclusively in **macOS Keychain** (`qq-mail-mcp` service), never in workspace files, issues, or plaintext config files.
 - **Bounded & Untrusted-Input Guardrails**: Enforces TLS certificate verification, `UIDVALIDITY` checks, 2 MB / 30,000-character read caps, and treats email bodies strictly as untrusted data without fetching embedded URLs, images, or scripts.
 
-## Status
+## Status & Verification
 
-Experimental. MCP initialization, tool discovery and mocked read-only tests pass. Live QQ mailbox authentication has not yet been verified in this project's initial setup. GitHub publication distributes source; it does not establish approval or listing in the OpenAI public plugin directory.
+- **Automated Verification Passed (Mock & Contract Tests)**: `python -m unittest discover -s tests -v` and `tests/check_mcp.py` verify MCP protocol initialization, read-only tool annotations (`readOnlyHint`), byte/character caps, `UIDVALIDITY` checks, and fail-closed missing-credential errors using isolated mock fixtures (zero hardcoded credentials).
+- **Local Real-Device Configuration**: Experimental connector. Live QQ Mail IMAP authentication runs locally on your Mac only after you execute `qq-mail-configure` to store the 16-letter QQ IMAP authorization code directly in macOS Keychain. GitHub publication distributes source under MIT License; it does not establish approval or listing in any third-party public plugin directory.
 
 ## Install on macOS
 
