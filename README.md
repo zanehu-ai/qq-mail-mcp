@@ -2,6 +2,12 @@
 
 A local, read-only QQ Mail MCP connector for macOS. This project is independent of Tencent and OpenAI. It uses QQ's IMAP service and the official MCP Python SDK.
 
+## Security Design Highlights
+
+- **Least-Privilege Read-Only Access**: Exposes strictly 3 read-only tools (`qq_mail_status`, `qq_mail_search`, `qq_mail_read`) scoped to Inbox and Sent via IMAP `EXAMINE` / `BODY.PEEK`—preserving unread flags with zero SMTP, send, delete, move, or settings permissions.
+- **Zero-Plaintext Credentials**: Stores the 16-letter QQ IMAP authorization code exclusively in **macOS Keychain** (`qq-mail-mcp` service), never in workspace files, issues, or plaintext config files.
+- **Bounded & Untrusted-Input Guardrails**: Enforces TLS certificate verification, `UIDVALIDITY` checks, 2 MB / 30,000-character read caps, and treats email bodies strictly as untrusted data without fetching embedded URLs, images, or scripts.
+
 ## Status
 
 Experimental. MCP initialization, tool discovery and mocked read-only tests pass. Live QQ mailbox authentication has not yet been verified in this project's initial setup. GitHub publication distributes source; it does not establish approval or listing in the OpenAI public plugin directory.
